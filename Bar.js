@@ -60,31 +60,31 @@ export default class ProgressBar extends Component {
     }
   }
 
-  componentWillReceiveProps(props) {
-    if (props.indeterminate !== this.props.indeterminate) {
-      if (props.indeterminate) {
+  componentDidUpdate(prevProps) {
+    if (this.props.indeterminate !== prevProps.indeterminate) {
+      if (this.props.indeterminate) {
         this.animate();
       } else {
         Animated.spring(this.state.animationValue, {
           toValue: BAR_WIDTH_ZERO_POSITION,
-          useNativeDriver: props.useNativeDriver,
+          useNativeDriver: this.props.useNativeDriver,
         }).start();
       }
     }
     if (
-      props.indeterminate !== this.props.indeterminate ||
-      props.progress !== this.props.progress
+      this.props.indeterminate !== prevProps.indeterminate ||
+      this.props.progress !== prevProps.progress
     ) {
-      const progress = props.indeterminate
+      const progress = this.props.indeterminate
         ? INDETERMINATE_WIDTH_FACTOR
-        : Math.min(Math.max(props.progress, 0), 1);
+        : Math.min(Math.max(this.props.progress, 0), 1);
 
-      if (props.animated) {
-        const { animationType, animationConfig } = this.props;
+      if (this.props.animated) {
+        const { animationType, animationConfig } = prevProps;
         Animated[animationType](this.state.progress, {
           ...animationConfig,
           toValue: progress,
-          useNativeDriver: props.useNativeDriver,
+          useNativeDriver: this.props.useNativeDriver,
         }).start();
       } else {
         this.state.progress.setValue(progress);

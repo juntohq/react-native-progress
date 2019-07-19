@@ -55,9 +55,9 @@ export default class CircleSnail extends Component {
     }
   }
 
-  componentWillReceiveProps(props) {
-    if (props.animating !== this.props.animating) {
-      if (props.animating) {
+  componentDidUpdate(prevProps) {
+    if (this.props.animating !== prevProps.animating) {
+      if (this.props.animating) {
         this.animate();
         this.spin();
       } else {
