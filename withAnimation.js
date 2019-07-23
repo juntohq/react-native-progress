@@ -70,7 +70,7 @@ export default function withAnimation(WrappedComponent, indeterminateProgress) {
         ? indeterminateProgress || 0
         : Math.min(Math.max(this.props.progress, 0), 1);
       if (progress !== this.progressValue) {
-        if (props.animated) {
+        if (this.props.animated) {
           Animated.spring(this.state.progress, {
             toValue: progress,
             bounciness: 0,
